@@ -1,5 +1,5 @@
 # Welcome to Silk
--------------------------------
+
 ## About
 > Silk is a security focused note taking alternative that can be self hosted with support for multiple users.
 
