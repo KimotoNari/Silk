@@ -7,6 +7,7 @@
 This project requires having Python 3 and pip installed on your system
 ### Setup and activate Python Virtual Environment:
 In the Silk Directory run:
+
 Windows:
 ```
 > py -3 -m venv .venv
