@@ -10,8 +10,9 @@ from silkMain.db import get_db
 
 bp = Blueprint('auth', __name__, url_prefix = '/auth')
 
+# views
 
-#views
+# register
 @bp.route('/register', methods = ('GET', 'POST'))
 def register():
     if request.method == 'POST':
@@ -21,7 +22,7 @@ def register():
         error = None
 
         if not email:
-            error = 'email is required'
+            error = 'Email is required'
         elif not password:
             error = 'Password is required'
         
@@ -42,6 +43,7 @@ def register():
 
     return render_template('auth/register.html')
 
+# login
 @bp.route('/login', methods = ('GET', 'POST'))
 def login():
     if request.method == 'POST':
@@ -53,19 +55,21 @@ def login():
             'SELECT * FROM user WHERE email = ?', (email,)
         ).fetchone()
 
-        if user is None:
-            error = 'Incorrect email and/or password'
-        elif not check_password_hash(user['password'], password+email):
-            error = 'Incorrect email and/or password'
+        if user is None or not check_password_hash(user['password'], password+email):
+            flash('Incorrect email and/or password')
         
-        if error is None:
+        else:
             session.clear()
             session['user_id'] = user['id']
             return redirect(url_for('index'))
         
-        flash(error)
-
     return render_template('auth/login.html')
+
+# logout
+@bp.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('index'))
 
 @bp.before_app_request
 def load_logged_in_user():
@@ -77,11 +81,6 @@ def load_logged_in_user():
         g.user = get_db().execute(
             'SELECT * FROM user WHERE id = ?', (user_id,)
         ).fetchone()
-
-@bp.route('/logout')
-def logout():
-    session.clear()
-    return redirect(url_for('index'))
 
 def login_required(view):
     @functools.wraps(view)

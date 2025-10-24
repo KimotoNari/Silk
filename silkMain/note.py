@@ -33,14 +33,14 @@ def create():
         title = request.form['title']
         body = request.form['body']
 
-        if not title:
+        if not title: # If no titled provided, default to untitiled
             title = 'Untitled'
 
         db = get_db()
         db.execute(
-            'INSERT INTO note (title, body, owner_id)'
-            ' VALUES (?,?,?)',
-            (title, body, g.user['id'])
+            'INSERT INTO note (title, body, created, modified, owner_id)'
+            ' VALUES (?,?,?,?,?)',
+            (title, body, datetime.now().isoformat(), datetime.now().isoformat(), g.user['id'])
         )
         db.commit()
         return redirect(url_for('note.index'))

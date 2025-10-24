@@ -8,18 +8,18 @@
 {%endblock%}
 
 {% block content %}
+    <div class="wrapper">
     {% for note in notes %}
-        <article class="post">
+        <article class="note">
             <header>
                 <div>
                     <a class="action" href="{{ url_for('note.update', id=note['id'])}}"><h1>{{note['title']}}</h1></a>
-                    <div class="about">Created: {{note['created'].strftime('%Y-%m-%d')}}, Modified: {{note['modified'].strftime('%Y-%m-%d %H:%M:%S')}}</div>
+                    <div class="about">Created: {{note['created'].strftime('%Y-%m-%d %H:%M:%S')}}</div>
+                    <div class="about">Modified: {{note['modified'].strftime('%Y-%m-%d %H:%M:%S')}}</div>
                 </div>
             </header>
             <p class = "body">{{note['body']}}</p>
         </article>
-        {% if not loop.last %}
-            <hr>
-        {%endif%}
     {%endfor%}
+    </div>
 {%endblock%}
