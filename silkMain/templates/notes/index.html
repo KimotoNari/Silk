@@ -12,12 +12,9 @@
         <article class="post">
             <header>
                 <div>
-                    <h1>{{note['title']}}</h1>
-                    <div class="about"> by {{ note['username']}} on {{note['created'].strftime('%Y-%m-%d')}}</div>
+                    <a class="action" href="{{ url_for('note.update', id=note['id'])}}"><h1>{{note['title']}}</h1></a>
+                    <div class="about">Created: {{note['created'].strftime('%Y-%m-%d')}}, Modified: {{note['modified'].strftime('%Y-%m-%d %H:%M:%S')}}</div>
                 </div>
-                {% if g.user['id'] == note['owner_id'] %}
-                    <a class="action" href="{{ url_for('note.update', id=note['id'])}}">Edit</a>
-                {%endif%}
             </header>
             <p class = "body">{{note['body']}}</p>
         </article>
