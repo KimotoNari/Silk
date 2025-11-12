@@ -33,6 +33,6 @@ flask --app silkMain init-db
 
 To run the Dev Build:
 ```
-flask --app flaskr run --debug
+flask --app silkMain run --debug
 ```
 With this running, you will now be able to access the webapp at: http://127.0.0.1:5000/
