@@ -4,7 +4,8 @@ DROP TABLE IF EXISTS note;
 CREATE TABLE user (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     email TEXT UNIQUE NOT NULL,
-    password TEXT NOT NULL
+    password TEXT NOT NULL,
+    otpsecret TEXT NOT NULL
 );
 
 CREATE TABLE note (

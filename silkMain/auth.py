@@ -1,4 +1,5 @@
 import functools
+import pyotp
 
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
@@ -27,16 +28,19 @@ def register():
             error = 'Password is required'
         
         if error is None:
+            otpsecret = pyotp.random_base32();
             try:
                 db.execute(
-                    "INSERT INTO user (email, password) VALUES (?, ?)",
-                    (email, generate_password_hash(password + email)),
+                    "INSERT INTO user (email, password, otpsecret) VALUES (?, ?, ?)",
+                    (email, generate_password_hash(password + email), otpsecret),
                 )
                 db.commit()
+                
             except db.IntegrityError:
                 error = f"This email is already in use"
             else:
                 session.clear()
+                flash('Enter this into an Authenticator app of your choice: ' + otpsecret)
                 return redirect(url_for("auth.login"))
             
         flash(error)
@@ -49,14 +53,15 @@ def login():
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
+        otp = request.form['otp']
         db = get_db()
         error = None
         user = db.execute(
             'SELECT * FROM user WHERE email = ?', (email,)
         ).fetchone()
-
-        if user is None or not check_password_hash(user['password'], password+email):
-            flash('Incorrect email and/or password')
+        totp = pyotp.TOTP(user['otpsecret'])
+        if user is None or not check_password_hash(user['password'], password+email) or not totp.verify(otp):
+            flash('Incorrect email and/or password/otp')
         
         else:
             session.clear()
