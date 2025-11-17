@@ -18,8 +18,11 @@
                     <div class="about">Modified: {{note['modified'].strftime('%Y-%m-%d %H:%M:%S')}}</div>
                 </div>
             </header>
-            <p class = "body">{{note['body']}}</p>
+            <p class = "body">
+                <md>{{note['body']}}</md>
+            </p>
         </article>
     {%endfor%}
     </div>
+    <script src="https://cdn.jsdelivr.net/gh/MarketingPipeline/Markdown-Tag/markdown-tag.js"></script> 
 {%endblock%}
