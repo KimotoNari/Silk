@@ -1,0 +1,11 @@
+[project]
+name = "silkMain"
+version = "0.1.0"
+description = "A simple privacy and security focused note-taking application."
+dependencies = [
+    "flask", "pyotp",
+]
+
+[build-system]
+requires = ["flit_core<4"]
+build-backend = "flit_core.buildapi"
