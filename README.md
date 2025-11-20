@@ -6,6 +6,11 @@
 ## Usage
 This project requires having Python 3 and pip installed on your system
 
+### Initial Setup with release package
+Create a directory for the project
+
+Copy the .whl file into the directory
+
 ### Setup and activate Python Virtual Environment:
 In the Silk Directory run:
 
