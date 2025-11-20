@@ -5,6 +5,7 @@
 
 ## Usage
 This project requires having Python 3 and pip installed on your system
+
 ### Setup and activate Python Virtual Environment:
 In the Silk Directory run:
 
@@ -19,11 +20,10 @@ $ python3 -m venv .venv
 $ . .venv/bin/activate
 ```
 
-### Install Dependencies
+### Install Silk
 Within the activated environment:
 ```
-pip install flask
-pip install pyotp
+pip install silkmain-0.1.0-py2.py3-none-any.whl
 ```
 
 ### Starting the Dev Build
